@@ -39,10 +39,3 @@ class Detector:
         dists, _ = self.tree.query(hit_points, k=1)
         return np.sum(dists <= self.r)
 
-    def check_hits_slow(self, origin, dirs):
-        hit_points = self._get_hit_points(origin, dirs)
-        if len(hit_points) == 0: return 0
-        
-        dists = np.linalg.norm(hit_points[:, np.newaxis, :] - self.pmt_coords[np.newaxis, :, :], axis=2)
-        min_dists = np.min(dists, axis=1)
-        return np.sum(min_dists <= self.r)
